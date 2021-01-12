@@ -27,6 +27,7 @@ export const theme = createMuiTheme({
         margin: 0,
         outline: 0,
         fontWeight: 500,
+        textTransform: "none",
         "&:hover": {
           background: "linear-gradient(to bottom,#f7dfa5,#f0b00b)",
         },

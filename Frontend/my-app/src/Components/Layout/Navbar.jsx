@@ -66,7 +66,14 @@ const styles = {
             height:'30px'
         }
     },
-    miniText:{display:'inline-block',fontSize:'12px',fontWeight:'400'}
+    signIn:{
+        cursor:'pointer'
+    },
+    miniText:{
+        display:'inline-block',
+        fontSize:'12px',
+        fontWeight:'400'
+    }
 }
 function Navbar(props) {
     const {classes} = props
@@ -97,7 +104,7 @@ function Navbar(props) {
                     <div>
                         <div className={classes.nav_tools}>
                     
-                            <div>
+                            <div className={classes.signIn}>
                                 <span className={classes.miniText} >
                                     Hello, Sign in
                                 </span> 
