@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import '../../Styles/Register.css'
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Button } from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux'
 import { makeRegisterRequest, registerReset } from '../../Redux/Register/action';

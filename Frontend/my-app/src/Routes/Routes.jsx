@@ -1,10 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Cart from '../Components/Layout/Cart';
-import ProductsContainer from '../Components/Layout/ProductsContainer';
+
 import CartPage from '../Components/Pages/CartPage';
 import Login from '../Components/Pages/Login';
-import ProductPage from '../Components/Pages/ViewProductPage';
+
 import Register from '../Components/Pages/Register';
 import ViewProductPage from '../Components/Pages/ViewProductPage';
 

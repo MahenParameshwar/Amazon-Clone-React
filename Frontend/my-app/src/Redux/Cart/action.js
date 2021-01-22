@@ -1,5 +1,5 @@
 import axios from "axios";
-import { updateLoggedUserCart, updateUserCart } from "../Login/action";
+import { updateLoggedUserCart } from "../Login/action";
 
 const {
   UPDATE_CART,

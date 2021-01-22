@@ -1,5 +1,5 @@
 import { Grid } from '@material-ui/core';
-import React, { useCallback } from 'react';
+import React from 'react';
 import Quantity from './Quantity';
 import {makeStyles} from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
