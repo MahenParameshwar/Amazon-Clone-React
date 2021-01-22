@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.scss';
+import "./App.css";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { theme } from "./Styles/theme";
+
+import Navbar from "./Components/Layout/Navbar";
+
+import Routes from "./Routes/Routes";
+
+import Footer from "./Components/Layout/Footer";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    console.log("called");
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div
+        className="App"
+        style={{ display: "flex", flexDirection: "column", height: "100vh" }}
+      >
+        <Routes />
+      </div>
+    </ThemeProvider>
   );
 }
 
