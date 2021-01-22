@@ -1,27 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import '../../Styles/Login.css'
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { Button } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/core/styles'
+import { loginErrorReset, makeLoginRequest } from '../../Redux/Login/action';
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function Login() {
-    const history = useHistory();
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const {isAuth,error,message} = useSelector(state=>state.login) 
+    const dispatch = useDispatch();
+    const [open, setOpen] = React.useState(false);
 
-    const signIn = e => {
+    
+    useEffect(()=>{
+        if(error){
+            setOpen(true)
+            dispatch(loginErrorReset())
+        }
+    },[error])
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+    const handleLogin = e => {
         e.preventDefault();
-
+        console.log(email,password)
+        dispatch(makeLoginRequest({
+            email,
+            password
+        }))
+        
        
     }
 
-    const register = e => {
-        e.preventDefault();
-
-       
-    }
+   
 
     return (
+        isAuth ? <Redirect to="/" /> :
         <div className='login'>
             <Link to='/'>
                 <img
@@ -34,14 +63,14 @@ function Login() {
             <div className='login__container'>
                 <h1>Sign-in</h1>
 
-                <form>
+                <form onSubmit={handleLogin}>
                     <h5>E-mail</h5>
                     <input type='text' value={email} onChange={e => setEmail(e.target.value)} />
 
                     <h5>Password</h5>
                     <input type='password' value={password} onChange={e => setPassword(e.target.value)} />
 
-                    <Button type='submit' onClick={signIn} className='login__signInButton'>Continue</Button>
+                    <Button type='submit'  className='login__signInButton'>Continue</Button>
                 </form>
 
                 <p>
@@ -52,6 +81,11 @@ function Login() {
                 </div>
                 
             </div>
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          {message}
+        </Alert>
+      </Snackbar>
         </div>
     )
 }

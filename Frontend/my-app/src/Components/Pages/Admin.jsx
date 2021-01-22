@@ -1,7 +1,11 @@
-import { Button, Container, Grid, Link, Typography, withStyles } from '@material-ui/core';
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { Button, Container, Grid, Typography, withStyles } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { makefetchProductsRequest } from '../../Redux/Product/action';
+import StackGrid from "react-stack-grid";
+
+
 
 const styles = {
    button:{
@@ -22,6 +26,13 @@ const styles = {
 }
 function Admin(props) {
     const {classes} = props
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const {products} = useSelector(state=>state.products)
+    console.log(products)
+    useEffect(()=>{
+        // dispatch(makefetchProductsRequest())
+    },[])
     return (
         <main>
                 <Container>
@@ -31,60 +42,18 @@ function Admin(props) {
                                 All Products
                             </Typography>
             
-                            <Button>
+                            <Button onClick={()=>history.push('/admin/addProduct')}>
                                 Add a new Product
                             </Button>
-                            <Button className={classes.button}>
+                            <Button onClick={()=>history.push('/admin/addCategory')} className={classes.button}>
                                 Add a new Category
                             </Button>
-                            <Button className={classes.button}>
-                                Add a new Owner
-                            </Button>
                         </Grid>
                     </Grid>
-                </Container>
-                
-                <Container>
-                    <Grid container>
-                        <Grid item lg={3} md={6} sm={12} xs={12}>
-                            <div>
-                                <Link>
-                                    <img src="s" alt="img" />
-                                </Link>
-                            </div>
-                            <div  >
-                                <span>
-                                    <div>
-                                        Product title
-                                    </div>
-                                </span>
-                            </div>
-                            <div>
-                                <Link>
-                                    <FontAwesomeIcon icon={faStar} />
-                                    <FontAwesomeIcon icon={faStar} />
-                                    <FontAwesomeIcon icon={faStar} />
-                                    <FontAwesomeIcon icon={faStar} />
-                                    <FontAwesomeIcon icon={faStar} />
-                                </Link>
-                                <span>
-                                    (1178)
-                                </span>
-                            </div>
-                            <div>
-                                Price
-                            </div>
-                            <div>
-                            <Button className={classes.button}>
-                                Update
-                            </Button>
-                            <Button className={classes.button}>
-                                Delete
-                            </Button>
-                            </div>
-                        </Grid>
-                        
-                    </Grid>
+                    <StackGrid
+                    gutterWidth='0'
+                    >
+      </StackGrid>
 
                 </Container>
         </main>
