@@ -5,7 +5,7 @@ import Price from '../Layout/Price';
 import Rating from '../Layout/Rating';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Quantity from '../Layout/Quantity';
+
 import Navbar from '../Layout/Navbar';
 import Footer from '../Layout/Footer';
 import { useDispatch, useSelector } from 'react-redux';

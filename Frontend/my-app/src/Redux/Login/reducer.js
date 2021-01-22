@@ -46,6 +46,7 @@ export const loginReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         error: false,
+        message: "",
       };
     case UPDATE_USER_CART:
       return {

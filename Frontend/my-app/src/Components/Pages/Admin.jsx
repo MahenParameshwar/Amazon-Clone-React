@@ -1,8 +1,7 @@
 import { Button, Container, Grid, Typography, withStyles } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { makefetchProductsRequest } from '../../Redux/Product/action';
+import {  useSelector } from 'react-redux';
 import StackGrid from "react-stack-grid";
 
 
@@ -27,7 +26,7 @@ const styles = {
 function Admin(props) {
     const {classes} = props
     const history = useHistory();
-    const dispatch = useDispatch();
+    
     const {products} = useSelector(state=>state.products)
     console.log(products)
     useEffect(()=>{

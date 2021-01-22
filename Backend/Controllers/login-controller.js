@@ -30,7 +30,7 @@ const handleLogin = async (req, res) => {
     res.status(400).json({
       error: true,
       success: false,
-      message: "Wrong Password entered",
+      message: "User does not exist Please register",
     });
     return;
   }

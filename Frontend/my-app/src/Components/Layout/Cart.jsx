@@ -1,6 +1,5 @@
 import { Button, Grid } from '@material-ui/core';
-import React, { useEffect } from 'react';
-import Quantity from './Quantity';
+import React from 'react';
 import {makeStyles} from '@material-ui/core'
 import CartItem from './CartItem';
 import { useSelector } from 'react-redux';

@@ -6,7 +6,7 @@ import CloseIcon from "@material-ui/icons/Close";
 
 function AddCategory(props) {
     const [category,setCategory] = useState('')
-    const {isLoading,error,success,message,categories} = useSelector(state=>state.admin)
+    const {error,success,message} = useSelector(state=>state.admin)
     const [snackBarOpen,setSnackBarOpen] = useState(false)
     const dispatch = useDispatch();
     console.log(error)

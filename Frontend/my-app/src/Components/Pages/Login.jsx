@@ -1,11 +1,11 @@
 import React, { useState,useEffect } from 'react';
 import '../../Styles/Login.css'
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Button } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles'
+
 import { loginErrorReset, makeLoginRequest } from '../../Redux/Login/action';
 
 function Alert(props) {
@@ -65,10 +65,10 @@ function Login() {
 
                 <form onSubmit={handleLogin}>
                     <h5>E-mail</h5>
-                    <input type='text' value={email} onChange={e => setEmail(e.target.value)} />
+                    <input required type='text' value={email} onChange={e => setEmail(e.target.value)} />
 
                     <h5>Password</h5>
-                    <input type='password' value={password} onChange={e => setPassword(e.target.value)} />
+                    <input required type='password' value={password} onChange={e => setPassword(e.target.value)} />
 
                     <Button type='submit'  className='login__signInButton'>Continue</Button>
                 </form>

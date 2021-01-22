@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme=>({
 
 function CheckoutContainer(props) {
     const classes = useStyles();
-    const { noOfItems,cart,amount} = useSelector(state=>state.cart)
+    const { cart,amount} = useSelector(state=>state.cart)
     const [days,setDays] = useState(7)
     const [shipCharge,setShipCharge] = useState(100)
     console.log(shipCharge)
