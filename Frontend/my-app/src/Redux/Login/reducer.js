@@ -1,23 +1,14 @@
 import {
   LOGIN_FAILURE,
   LOGIN_REQUEST,
-  LOGIN_ERROR_RESET,
+  LOGIN_ERROR_SUCCESS_RESET,
   LOGIN_SUCCESS,
-  UPDATE_USER_CART,
 } from "./actionConstants";
 
 const initState = {
   isLoading: false,
   error: false,
-  isAuth: false,
   success: false,
-  loggedUser: {
-    _id: "60018d00e7094010bc0759ae",
-    name: "mahen",
-    email: "m@gmail.com",
-    password: "123",
-    cart: [],
-  },
   message: "",
 };
 
@@ -38,20 +29,14 @@ export const loginReducer = (state = initState, { type, payload }) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        success: true,
         isLoading: false,
-        loggedUser: payload,
-        isAuth: true,
       };
-    case LOGIN_ERROR_RESET:
+    case LOGIN_ERROR_SUCCESS_RESET:
       return {
         ...state,
         error: false,
-        message: "",
-      };
-    case UPDATE_USER_CART:
-      return {
-        ...state,
-        loggedUser: { ...state.loggedUser, cart: payload },
+        success: false,
       };
     default:
       return state;

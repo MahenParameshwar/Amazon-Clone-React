@@ -9,6 +9,7 @@ const useStyles = makeStyles(theme=>({
     item:{
         display:'flex',
         flexDirection:'column',
+        cursor:"pointer",
         '@media (max-width: 600px)' : {
            flexDirection:'row',
           }

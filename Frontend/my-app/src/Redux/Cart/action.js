@@ -1,5 +1,5 @@
 import axios from "axios";
-import { updateLoggedUserCart } from "../Login/action";
+import { updateLoggedUserCart } from "../Customer/action";
 
 const {
   UPDATE_CART,
@@ -17,7 +17,7 @@ const updateCart = (updatedCart) => {
   };
 };
 
-const updateTotalItems = (cartTotal) => {
+export const updateTotalItems = (cartTotal) => {
   return {
     type: UPDATE_TOTAL_ITEMS,
     payload: cartTotal,
@@ -103,7 +103,7 @@ export const handleDeleteFromCart = ({ id, cart, userId }) => (dispatch) => {
   dispatch(updateCartUser(newCart, userId));
 };
 
-const updateCartUser = (newCart, userId) => (dispatch) => {
+export const updateCartUser = (newCart, userId) => (dispatch) => {
   dispatch(upateCartRequest());
   return axios
     .post(

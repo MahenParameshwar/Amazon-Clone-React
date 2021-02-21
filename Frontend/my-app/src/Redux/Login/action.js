@@ -21,32 +21,29 @@ function loginFailure(response) {
   };
 }
 
-export function loginErrorReset() {
+export function loginErrorSuccessReset() {
   return {
-    type: actionConstants.LOGIN_ERROR_RESET,
+    type: actionConstants.LOGIN_ERROR_SUCCESS_RESET,
   };
 }
-
-export const updateLoggedUserCart = (cart) => {
-  return {
-    type: actionConstants.UPDATE_USER_CART,
-    payload: cart,
-  };
-};
 
 export const makeLoginRequest = ({ email, password }) => (dispatch) => {
   dispatch(loginRequest());
   axios
-    .get(`${process.env.REACT_APP_BASE_URL}/api/login`, {
-      params: {
-        email,
-        password,
-      },
+    .post(`${process.env.REACT_APP_BASE_URL}/api/login`, {
+      email,
+      password,
     })
     .then((res) => {
-      dispatch(loginSuccess(res.data.user));
+      saveTokenToLocalStorage(res.data);
+      dispatch(loginSuccess());
     })
     .catch((err) => {
+      console.log(err.response);
       dispatch(loginFailure(err.response.data.message));
     });
+};
+
+const saveTokenToLocalStorage = ({ token }) => {
+  localStorage.setItem("token", token);
 };

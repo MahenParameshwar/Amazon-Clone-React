@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCart } from '../../Redux/Cart/action';
 import Pagination from '@material-ui/lab/Pagination';
 import { makefetchProductsRequest, setPage } from '../../Redux/Product/action';
+import { makeGetCustomerDataRequest } from '../../Redux/Customer/action';
+import { Redirect } from 'react-router-dom';
 
 function Home(props) {
   const settings = {
@@ -21,13 +23,11 @@ function Home(props) {
     autoplay: true,
 }
 
-const {loggedUser} = useSelector((state)=>state.login)
+
 const {total,limit,page} = useSelector((state)=>state.products)
 const dispatch =   useDispatch();
 
-useEffect(()=>{
-  dispatch(setCart(loggedUser.cart))
-},[])
+
 
 const getPages = () => {
   if (total % limit === 0) return total / limit;
@@ -36,7 +36,6 @@ const getPages = () => {
 
 useEffect(() => {
   dispatch(makefetchProductsRequest({page,limit}))
-  console.log("called")
 }, [page]);
 
 const handlePageChange = (event, value) => {
@@ -45,7 +44,7 @@ const handlePageChange = (event, value) => {
 
     return (
         <>
-          <Navbar/>
+          <Navbar />
           <div className="banner-container">
 
             <Slider {...settings}>
@@ -70,6 +69,7 @@ const handlePageChange = (event, value) => {
             <ProductsContainer/>
             <div style={{display:"flex",justifyContent:"center",marginTop:"40px"}}>
               <Pagination 
+              
               count={getPages()} 
               page={page}
               onChange={handlePageChange}

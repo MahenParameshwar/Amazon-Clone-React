@@ -32,8 +32,9 @@ function Register() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
-    const {isAuth} = useSelector(state=>state.login)
     const [severity,setSeverity] = useState("success")
+    const token = localStorage.getItem('token')
+
     const handleRegister = (e)=>{
     
       e.preventDefault();
@@ -75,7 +76,7 @@ function Register() {
   };
 
     return (
-      isAuth ? <Redirect to="/" /> :
+      token ? <Redirect to="/" /> :
         <>
         <LoadingBar style={{backgroundColor:'#f0c14b'}} />
         <div className='register'>

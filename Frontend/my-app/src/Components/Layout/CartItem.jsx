@@ -36,15 +36,15 @@ function CartItem({product}) {
     const dispatch = useDispatch()
     
    const {cart} = useSelector(state=>state.cart)
-   const {loggedUser} = useSelector(state=>state.login)
+   const {customer} = useSelector(state=>state.customer)
 
     const updateCartQuantity = (quantity)=>{
-        const {_id : userId} = loggedUser
+        const {_id : userId} = customer
         dispatch(handleAddToCart({product,cart,quantity,userId}))
     }
 
     const handleDelete = ()=>{
-        const {_id : userId} = loggedUser
+        const {_id : userId} = customer
         dispatch(handleDeleteFromCart({id:product._id,cart,userId}))
     }
 

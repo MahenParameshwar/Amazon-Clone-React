@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeAddCategoryRequest } from '../../Redux/Admin/action';
+import { makeAddCategoryRequest, resetMessage } from '../../Redux/Admin/action';
 import { Button, Container,IconButton,Snackbar, TextField, Typography } from '@material-ui/core';
 import CloseIcon from "@material-ui/icons/Close";
 
@@ -13,6 +13,7 @@ function AddCategory(props) {
     useEffect(()=>{
         if(success || error){
             setSnackBarOpen(true)
+            dispatch(resetMessage())
         }
     },[success,error])
 

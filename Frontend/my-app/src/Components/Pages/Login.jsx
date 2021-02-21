@@ -1,12 +1,12 @@
 import React, { useState,useEffect } from 'react';
 import '../../Styles/Login.css'
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { Button } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
-import { loginErrorReset, makeLoginRequest } from '../../Redux/Login/action';
+import { loginErrorSuccessReset, makeLoginRequest } from '../../Redux/Login/action';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -16,17 +16,26 @@ function Login() {
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {isAuth,error,message} = useSelector(state=>state.login) 
+    const {error,message,success} = useSelector(state=>state.login) 
+    const token = localStorage.getItem('token')
     const dispatch = useDispatch();
+    const history = useHistory()
     const [open, setOpen] = React.useState(false);
-
+   
     
     useEffect(()=>{
         if(error){
             setOpen(true)
-            dispatch(loginErrorReset())
+           dispatch(loginErrorSuccessReset())
         }
     },[error])
+
+    useEffect(()=>{
+        if(success){
+            history.push('/')
+        }
+        dispatch(loginErrorSuccessReset())
+    },[success])
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -50,7 +59,7 @@ function Login() {
    
 
     return (
-        isAuth ? <Redirect to="/" /> :
+        token ? <Redirect to="/" /> :
         <div className='login'>
             <Link to='/'>
                 <img

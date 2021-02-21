@@ -7,6 +7,7 @@ export const styles = {
     display: "flex",
     height: "inherit",
     alignItems: "center",
+    justifyContent: "space-between",
   },
   input_search: {
     maxWidth: "735px",
@@ -62,6 +63,10 @@ export const styles = {
       top: "3px",
       height: "30px",
     },
+
+    "@media (max-width:720px)": {
+      display: "none",
+    },
   },
   signIn: {
     cursor: "pointer",
@@ -70,5 +75,10 @@ export const styles = {
     display: "inline-block",
     fontSize: "12px",
     fontWeight: "400",
+  },
+  menu: {
+    width: "100vw",
+    maxWidth: "300px",
+    padding: "20px",
   },
 };

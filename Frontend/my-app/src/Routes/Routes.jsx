@@ -14,6 +14,7 @@ import PrivateRoute from './PrivateRoute';
 import Home from '../Components/Pages/Home';
 import ContactPage from '../Components/Pages/ContactPage';
 import Checkout from '../Components/Pages/Checkout';
+import Order from '../Components/Pages/Order';
 
 function Routes(props) {
     return (
@@ -28,6 +29,7 @@ function Routes(props) {
             <PrivateRoute path="/viewProduct/:_id" exact Component={ViewProductPage}/>
             <PrivateRoute path="/cart" exact Component={CartPage} />
             <PrivateRoute path="/checkout" exact Component={Checkout} />
+            <PrivateRoute path="/orders" exact Component={Order} />
         </Switch>
     );
 }

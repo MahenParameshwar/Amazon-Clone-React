@@ -1,9 +1,9 @@
 const express = require("express");
-const cartController = require("../Controllers/cart-controller");
+const customerController = require("../Controllers/customer-controller");
 const authenticateToken = require("../Middleware/authenticateToken");
 
 const routes = express.Router();
 
-routes.post("/updateCart", cartController);
+routes.get("/auth/customer", authenticateToken, customerController);
 
 module.exports = routes;
