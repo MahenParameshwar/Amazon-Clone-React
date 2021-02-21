@@ -8,6 +8,7 @@ import {
   ADD_PRODUCT_REQUEST,
   ADD_PRODUCT_FAILURE,
   ADD_PRODUCT_SUCCESS,
+  RESET_MESSAGE,
 } from "./actionConstants";
 
 const initState = {
@@ -21,6 +22,12 @@ const initState = {
 
 export const adminReducer = (state = initState, { type, payload }) => {
   switch (type) {
+    case RESET_MESSAGE:
+      return {
+        ...state,
+        error: false,
+        success: false,
+      };
     case ADD_PRODUCT_REQUEST:
       return {
         ...state,

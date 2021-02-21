@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme=>({
     }
 }))
 function Cart(props) {
+    
     const classes = useStyles();
     const { noOfItems,cart,amount} = useSelector(state=>state.cart)
     const history = useHistory()
@@ -84,4 +85,4 @@ function Cart(props) {
     );
 }
 
-export default Cart;
+export default  Cart;

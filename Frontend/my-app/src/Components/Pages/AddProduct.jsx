@@ -1,7 +1,7 @@
 import { Container, Button,InputBase,withStyles ,FormControl, IconButton,Snackbar,NativeSelect, TextareaAutosize, TextField, Typography,makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeAddProductsRequest, makeGetCategoriesRequest } from '../../Redux/Admin/action';
+import { makeAddProductsRequest, makeGetCategoriesRequest, resetMessage } from '../../Redux/Admin/action';
 import CloseIcon from "@material-ui/icons/Close";
 
 const BootstrapInput = withStyles((theme) => ({
@@ -66,6 +66,7 @@ function AddProduct(props) {
     useEffect(()=>{
         if(success || error){
             setSnackBarOpen(true)
+            dispatch(resetMessage());
         }
     },[success,error])
     

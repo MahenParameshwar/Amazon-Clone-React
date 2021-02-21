@@ -41,6 +41,7 @@ export const theme = createMuiTheme({
         color: "#111",
         padding: 0,
         margin: 0,
+        fontFamily: "inherit",
       },
       h2: {
         color: "#0F1111!important",
@@ -51,16 +52,20 @@ export const theme = createMuiTheme({
         textDecoration: "none!important",
         textRendering: "optimizeLegibility",
         fontSize: "15px!important",
+        fontFamily: "inherit",
       },
       h3: {
         fontSize: "22px",
         fontWeight: "700",
+        fontFamily: "inherit",
       },
       h5: {
         fontSize: "15px",
         fontWeight: "700",
         letterSpacing: "0.05rem",
         margin: "5px 5px 5px 0",
+        color: "black",
+        fontFamily: "inherit",
       },
     },
   },

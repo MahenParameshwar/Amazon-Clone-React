@@ -56,9 +56,9 @@ const BootstrapInput = withStyles((theme) => ({
 
 function Quantity({quantity,updateCartQuantity}) {
     const classes = useStyles();
-    console.log(quantity)    
+   
     const [qty, setQty] = React.useState(quantity);
-   const [qtyBig,setQtyBig] = React.useState(10);
+   const [qtyBig,setQtyBig] = React.useState(quantity);
     
     const [open,setOpen] = useState( quantity > 10 ? true : false)
   

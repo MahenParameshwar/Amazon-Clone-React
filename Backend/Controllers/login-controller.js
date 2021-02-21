@@ -1,38 +1,54 @@
 const Customers = require("../Model/customer");
 const bcrypt = require("bcrypt");
 
+const jwt = require("jsonwebtoken");
+
 const handleLogin = async (req, res) => {
-  let { email, password } = req.query;
-  console.log(email, password);
-  const customer = await Customers.findOne({
-    email,
-  });
+  try {
+    let { email, password } = req.body;
 
-  if (!customer) {
-    res.status(400).json({
-      error: true,
-      message: "Email does not exist",
+    const customer = await Customers.findOne({
+      email,
     });
-    return;
-  }
 
-  const checkPassword = await bcrypt.compare(password, customer.password);
+    if (!customer) {
+      res.status(400).json({
+        error: true,
+        message: "Email does not exist",
+      });
+      return;
+    }
 
-  if (checkPassword) {
-    res.status(200).json({
-      error: false,
-      success: true,
-      user: customer,
-      message: "Login Success",
-    });
-    return;
-  } else {
+    const checkPassword = await bcrypt.compare(password, customer.password);
+
+    if (checkPassword) {
+      const accessToken = jwt.sign(
+        { data: customer._id },
+        process.env.SECRET_KEY,
+        {
+          expiresIn: "360000000s",
+        }
+      );
+
+      res.status(200).json({
+        token: accessToken,
+      });
+      return;
+    } else {
+      res.status(400).json({
+        error: true,
+        success: false,
+        message: "Wrong Password enterd",
+      });
+      return;
+    }
+  } catch (err) {
+    console.log(err.message);
     res.status(400).json({
       error: true,
       success: false,
-      message: "User does not exist Please register",
+      message: "Somthing went wrong",
     });
-    return;
   }
 };
 

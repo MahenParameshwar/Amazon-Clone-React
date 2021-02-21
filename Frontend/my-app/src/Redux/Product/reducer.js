@@ -16,7 +16,7 @@ const initState = {
   viewProduct: null,
   message: "",
   page: 1,
-  limit: 3,
+  limit: 6,
   total: 0,
 };
 

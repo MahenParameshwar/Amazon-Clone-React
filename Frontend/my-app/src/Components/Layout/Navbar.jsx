@@ -1,16 +1,52 @@
-import { Button, Container, withStyles } from '@material-ui/core';
-import React from 'react';
+import { Button, Container, withStyles,Typography } from '@material-ui/core';
+import React, {useEffect} from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import {styles} from '../../Styles/navbar.js'
 import { useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { makeGetCustomerDataRequest } from '../../Redux/Customer/action.js';
+import Popover from '@material-ui/core/Popover';
+
+
 
 function Navbar(props) {
+
     const {classes} = props
-    const {loggedUser} = useSelector(state=>state.login)
+    
+    
+    const {customer} = useSelector(state=>state.customer)
     const history = useHistory();
     const { noOfItems} = useSelector(state=>state.cart)
+    const dispatch =   useDispatch();
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+  
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    useEffect(()=>{
+        const token =  localStorage.getItem('token')
+        if(token){
+        
+        
+          dispatch(makeGetCustomerDataRequest(token))
+        
+        }
+       },[])
     
+       useEffect(()=>{
+           
+       
+       },[noOfItems])
     
     
     return (
@@ -30,7 +66,7 @@ function Navbar(props) {
                         <img  src="/img/location.png" alt=""/>
                         
                     </div>
-                    <div style={{flex:"1"}}>
+                    <div className="searchBar" style={{flex:"1"}}>
                         <form className={classes.searchForm} >
                         <input  className={classes.input_search} type="text"/>
                             <Button 
@@ -41,17 +77,23 @@ function Navbar(props) {
                         </form>
                     </div>
                     <div>
-                        <div className={classes.nav_tools}>
+                        <div  onClick={handleClick} className={classes.nav_tools}>
                     
                             <div className={classes.signIn}>
-                                <span className={classes.miniText} >
-                                    Hello, {loggedUser.name}
-                                </span> 
+                                {
+                                    customer ? <span className={classes.miniText} >
+                                                Hello, {customer.name}
+                                    </span> :  <span onClick={()=>history.push('/login')} className={classes.miniText} >
+                                                Hello, Sign in
+                                    </span>
+                                }
+                                
                                 <div>
                                     Accounts & lists
                                 </div>
+                               
                             </div>
-                            <div>
+                            <div onClick={()=>history.push("/orders")}>
                                 <span className={classes.miniText}>
                                     Returns
                                 </span>
@@ -69,7 +111,27 @@ function Navbar(props) {
                         </div>
                     </div>
                   
-                
+                    <Popover
+                        id={id}
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                        >
+                            <div className={classes.menu}>
+                            <Button onClick={()=>{
+                                history.push('/login')
+                                localStorage.removeItem('token')}} >SignOut</Button>
+                            </div>
+                                    
+                                </Popover>
             </header>
         </Container>
     );

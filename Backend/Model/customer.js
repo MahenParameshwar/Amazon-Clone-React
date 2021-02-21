@@ -17,11 +17,15 @@ const customerSchema = new Schema(
     },
     address: {
       type: Schema.Types.ObjectId,
-      ref: "Adress",
+      ref: "Address",
     },
     cart: {
       type: Array,
       default: [],
+    },
+    orders: {
+      type: Schema.Types.ObjectId,
+      ref: "Orders",
     },
   },
   {

@@ -1,8 +1,12 @@
 import { Button, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CheckOutItems from './CheckOutItems';
-
+import Axios from 'axios'
+import { v4 as uuidv4 } from 'uuid';
+import { updateCartUser,updateTotalItems } from '../../Redux/Cart/action';
+import { useHistory } from 'react-router-dom';
+import { makeUpdateOrdersRequest } from '../../Redux/Orders.jsx/action';
 
 const useStyles = makeStyles(theme=>({
     border:{
@@ -44,7 +48,6 @@ const useStyles = makeStyles(theme=>({
         marginTop:"30px"
     },
    
-    
 }))
 
 function CheckoutContainer(props) {
@@ -52,7 +55,10 @@ function CheckoutContainer(props) {
     const { cart,amount} = useSelector(state=>state.cart)
     const [days,setDays] = useState(7)
     const [shipCharge,setShipCharge] = useState(100)
-    console.log(shipCharge)
+    const dispatch = useDispatch()
+    const {customer} = useSelector(state=>state.customer)
+    const history = useHistory()
+    const token = localStorage.getItem("token")
     const handleChange = (e)=>{
        
         if(e.target.value === "7"){
@@ -61,7 +67,6 @@ function CheckoutContainer(props) {
         }
         else
         if(e.target.value === "3"){
-        
             
                 setDays(3)
                 setShipCharge(500) 
@@ -69,6 +74,55 @@ function CheckoutContainer(props) {
         }
         
     }
+
+    const paymentHandler = async (e) => {
+        e.preventDefault();
+    
+        const API_URL = 'http://localhost:8000'
+        const orderUrl = `${API_URL}/payment`;
+        const response = await Axios.post(orderUrl,{
+            amount: amount + shipCharge,
+            currency: 'INR',
+            receipt: uuidv4(),
+            payment_capture: 0
+        });
+        const { data } = response;
+        const options = {
+          name: "Amazon RazorPay",
+          description: "Integration of Razorpay",
+          order_id: data.id,
+          handler: async (response) => {
+            try {
+              const paymentId = response.razorpay_payment_id;
+              const url = `${API_URL}/capture/${paymentId}`;
+              const captureResponse = await Axios.post(url, {
+                  amount:amount+shipCharge
+              })
+              const successObj = JSON.parse(captureResponse.data)
+              const captured = successObj.captured;
+              if (captured) {
+                dispatch(makeUpdateOrdersRequest({
+                    token,
+                    total:amount+shipCharge,
+                    address:"Bangalore Karnataka",
+                    isPaid:true,
+                    cart
+                }))
+                dispatch(updateCartUser([],customer._id));
+                dispatch(updateTotalItems(0))
+                history.push("/orders")
+              }
+            } catch (err) {
+              console.log(err.message);
+            }
+          },
+          theme: {
+            color: "#c6203d",
+          },
+        };
+        const rzp1 = new window.Razorpay(options);
+        rzp1.open();
+      };
 
     return (
         <div style={{padding:'20px',flex:1}}>
@@ -194,7 +248,7 @@ function CheckoutContainer(props) {
                 </Grid>
                 <Grid  className={classes.border} container item lg={3} md={3} sm={12} xs={12}>
                     <div>
-                        <Button style={{width:"100%"}}>
+                        <Button onClick={paymentHandler} style={{width:"100%"}}>
                             Place your Order
                         </Button>
                         <div style={{fontSize:"12px",textAlign:"center",margin:"10px 0px"}}>

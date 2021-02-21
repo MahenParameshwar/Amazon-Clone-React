@@ -9,6 +9,7 @@ import {
   ADD_PRODUCT_FAILURE,
   ADD_PRODUCT_REQUEST,
   ADD_PRODUCT_SUCCESS,
+  RESET_MESSAGE,
 } from "./actionConstants";
 
 function addProductRequest() {
@@ -33,7 +34,7 @@ function addProductFailure(message) {
 
 export const makeAddProductsRequest = (product) => (dispatch) => {
   dispatch(addProductRequest());
-
+  console.log(product);
   axios
     .post(`${process.env.REACT_APP_BASE_URL}/api/products`, product)
     .then((res) => {
@@ -103,4 +104,10 @@ export const makeGetCategoriesRequest = () => (dispatch) => {
     .catch((err) => [
       dispatch(getCategoriesFailure("Could not fetch categories")),
     ]);
+};
+
+export const resetMessage = () => {
+  return {
+    type: RESET_MESSAGE,
+  };
 };

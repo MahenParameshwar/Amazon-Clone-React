@@ -1,6 +1,6 @@
 import { Button, Grid, makeStyles, Typography } from '@material-ui/core';
 import clsx from 'clsx';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Price from '../Layout/Price';
 import Rating from '../Layout/Rating';
 import Radio from '@material-ui/core/Radio';
@@ -121,15 +121,30 @@ function StyledRadio(props) {
   }
 
 
+  function findQuantity(cart,_id) {
+      const item = cart.find(item=>item._id === _id)
+    if(item){
+        return item.quantity
+    }
+    return 0
+
+  }
+
 function ViewProductPage(props) {
+    
     const classes = useStyles();
     const {viewProduct,isLoading} = useSelector(state=>state.products)
     const {cart} = useSelector(state=>state.cart)
-    const {loggedUser} = useSelector(state=>state.login)
+    const {customer} = useSelector(state=>state.customer)
     const {_id} = useParams();
     const dispatch = useDispatch();
-   
+    const [quantity,setQuantity] = useState(findQuantity(cart,_id));
+
+
+
+  
     useEffect(()=>{
+        
         dispatch(makefetchViewProductRequest(_id))
     },[])
 
@@ -138,8 +153,9 @@ function ViewProductPage(props) {
     }
     
     const addToCart = ()=>{
-        const {_id : userId} = loggedUser
-        dispatch(handleAddToCart({product:viewProduct,cart,userId}))
+        const {_id : userId} = customer
+        dispatch(handleAddToCart({product:viewProduct,cart,userId,quantity:quantity+1}))
+        setQuantity(prev=>prev+1)
     }
     return (
         <>
