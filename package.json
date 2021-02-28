@@ -8,7 +8,7 @@
     "server": "nodemon Backend/server",
     "client": "npm start --prefix Frontend/my-app",
     "dev": "concurrently \"npm run server\" \"npm run client \"",
-    "start": "node server.js"
+    "start": "node ../server.js"
   },
   "repository": {
     "type": "git",
