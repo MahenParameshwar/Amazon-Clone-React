@@ -104,6 +104,6 @@ app.post("/capture/:paymentId", (req, res) => {
   }
 });
 
-app.listen(8000, () => {
-  console.log("Listening at port 8000");
+app.listen(process.env.PORT || 8000, () => {
+  console.log("You are connected");
 });
