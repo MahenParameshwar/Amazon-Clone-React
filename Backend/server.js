@@ -53,15 +53,7 @@ const instance = new Razorpay({
   key_id: process.env.RAZOR_PAY_KEY_ID,
   key_secret: process.env.RAZOR_PAY_KEY_SECRET,
 });
-console.log(123);
 
-app.get("/", (req, res) => {
-  res.status(404).json({ code: 60, message: "resource not found" });
-});
-
-app.get("/favicon.ico", (req, res) => {
-  res.status(404).json({ code: 60, message: "resource not found" });
-});
 app.post("payment", (req, res) => {
   try {
     const options = {
