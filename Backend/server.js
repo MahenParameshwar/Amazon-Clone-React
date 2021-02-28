@@ -31,30 +31,30 @@ app.use(cors());
 app.use(express.json());
 app.use(responseTime());
 
-app.use("api", registerRoute);
+app.use("/api", registerRoute);
 
-app.use("api", loginRoute);
+app.use("/api", loginRoute);
 
-app.use("api", produntsRoute);
+app.use("/api", produntsRoute);
 
-app.use("api", categoryRoute);
+app.use("/api", categoryRoute);
 
-app.use("api", cartRoute);
+app.use("/api", cartRoute);
 
-app.use("api", sendEmailRoute);
+app.use("/api", sendEmailRoute);
 
-app.use("api", customerRoute);
+app.use("/api", customerRoute);
 
-app.use("api", addressRoute);
+app.use("/api", addressRoute);
 
-app.use("api", ordersRoute);
+app.use("/api", ordersRoute);
 
 const instance = new Razorpay({
   key_id: process.env.RAZOR_PAY_KEY_ID,
   key_secret: process.env.RAZOR_PAY_KEY_SECRET,
 });
 
-app.post("payment", (req, res) => {
+app.post("/payment", (req, res) => {
   try {
     const options = {
       ...req.body,
@@ -76,7 +76,7 @@ app.post("payment", (req, res) => {
   }
 });
 
-app.post("capture/:paymentId", (req, res) => {
+app.post("/capture/:paymentId", (req, res) => {
   try {
     return request(
       {
