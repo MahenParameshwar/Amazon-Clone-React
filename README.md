@@ -70,32 +70,17 @@ Clone down this repository. You will need node and npm installed globally on you
     <li>@fortawesome/free-solid-svg-icons</li>
     <li>@fortawesome/react-fontawesome</li>
     <li>email-validator</li>
-    <li>node-sass</li>
+    <li>bootstrap</li>
     <li>react</li>
     <li>react-debounce-input</li>
     <li>react-dom</li>
-    <li>react-elastic-carousel</li>
-    <li>react-icons</li>
-    <li>react-jw-player</li>
-    <li>react-modal</li>
     <li>react-redux</li>
     <li>react-router-dom</li>
     <li>react-scripts</li>
-    <li>react-slick</li>
-    <li>react-youtube</li>
     <li>redux</li>
     <li>redux-devtools-extension</li>
     <li>redux-thunk</li>
   </ul>
 
 
-
-
-
-
-
-
-### Acknowledgments
-<div>
-  We take all the responsiblity for every single line of code. The design inspired from Netflix
-</div>
+<a href="https://clone-mern-amazon.netlify.app/#/login">Live Version</a>
