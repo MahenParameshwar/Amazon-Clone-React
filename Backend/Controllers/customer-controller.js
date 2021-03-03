@@ -7,12 +7,13 @@ const customerController = async (req, res) => {
     const customer = await Customer.findOne({ _id });
 
     if (customer) {
-      const { name, cart } = customer;
+      const { name, cart, isAdmin } = customer;
 
       res.status(200).json({
         _id,
         name,
         cart,
+        isAdmin,
       });
     } else throw new Error();
   } catch (err) {

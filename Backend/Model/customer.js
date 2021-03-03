@@ -27,6 +27,10 @@ const customerSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Orders",
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     versionKey: false,
